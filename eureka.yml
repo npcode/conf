@@ -1,0 +1,71 @@
+#spring:
+#  profiles:
+#    active: dev7001
+
+---
+spring:
+  profiles: dev7001
+
+server:
+  port: 7001
+
+eureka:
+  instance:
+    hostname: eureka7001.com
+    # 设计本机地址
+    #hostname: localhost # 单机版
+  client:
+    # 不注册自己
+    register-with-eureka: false
+    fetch-registry: false
+    # 监控配置
+    service-url:
+      # eureka 服务中心地址， 提供给 eureka client 注册
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka # 单机
+      defaultZone: http://eureka7003.com:7003/eureka/,http://eureka7002.com:7002/eureka/ # 与其他构成集群环境
+
+
+---
+spring:
+  profiles: dev7002
+
+server:
+  port: 7002
+
+eureka:
+  instance:
+    hostname: eureka7002.com
+    # 设计本机地址
+    #hostname: localhost # 单机版
+  client:
+    # 不注册自己
+    register-with-eureka: false
+    fetch-registry: false
+    # 监控配置
+    service-url:
+      # eureka 服务中心地址， 提供给 eureka client 注册
+      #      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka # 单机
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7003.com:7003/eureka/ # 与其他构成集群环境
+
+
+---
+spring:
+  profiles: dev7003
+
+server:
+  port: 7003
+
+eureka:
+  instance:
+    hostname: eureka7003.com
+    # 设计本机地址
+    #hostname: localhost # 单机版
+  client:
+    # 不注册自己
+    register-with-eureka: false
+    fetch-registry: false
+    # 监控配置
+    service-url:
+      # eureka 服务中心地址， 提供给 eureka client 注册
+      #      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka # 单机
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/ # 与其他构成集群环境
